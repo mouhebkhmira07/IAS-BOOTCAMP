@@ -1,0 +1,15 @@
+stages:
+  load_model:
+    cmd: python src/vision/load_model.py
+    deps:
+      - src/vision/load_model.py
+    outs:
+      - data/raw/yolo26
+  
+  # Add more stages as your project evolves, e.g.,
+  # preprocess:
+  #   cmd: python src/vision/preprocess.py
+  #   deps:
+  #     - data/raw/yolo26
+  #   outs:
+  #     - data/processed/

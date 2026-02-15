@@ -1,0 +1,7 @@
+streamlit
+roboflow
+ultralytics
+opencv-python-headless
+pillow
+numpy
+python-dotenv
