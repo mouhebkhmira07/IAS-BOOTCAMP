@@ -1,19 +1,22 @@
+import os
+os.environ["MLFLOW_TRACKING_URI"] = ""  # Disable MLflow to avoid registry error
+os.environ["WANDB_DISABLED"] = "true"
 from ultralytics import YOLO
 
-# Load pretrained YOLOv8 nano model
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
 model = YOLO("yolov8n.pt")
 
-# Train on laser detection dataset
 model.train(
-    data="Laser-detection-1/data.yaml",
+    data=os.path.join(ROOT, "Laser-detection-1", "data.yaml"),
     epochs=50,
     imgsz=640,
     batch=16,
     name="laser-leak-detector",
-    project="runs"
+    project=os.path.join(ROOT, "runs"),
+    exist_ok=True
 )
 
-# Evaluate
 metrics = model.val()
-print(f"mAP50: {metrics.box.map50:.4f}")
+print(f"\nmAP50: {metrics.box.map50:.4f}")
 print(f"mAP50-95: {metrics.box.map:.4f}")
